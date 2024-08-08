@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Query System</title>
+</head>
+<body>
+    <h1>Ask a question about the book</h1>
+    <input type="text" id="query" placeholder="Enter your question">
+    <button onclick="sendQuery()">Ask</button>
+    <div id="response"></div>
+
+    <script>
+    function sendQuery() {
+        var query = document.getElementById('query').value;
+        fetch('http://localhost:5000/query', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({query: query}),
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('response').innerText = data.response;
+        });
+    }
+    </script>
+</body>
+</html>
